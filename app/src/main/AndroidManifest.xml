@@ -26,9 +26,6 @@
             android:name=".page3_Cart"
             android:exported="false" />
         <activity
-            android:name=".CartActivity"
-            android:exported="false" />
-        <activity
             android:name=".page2_bigstall"
             android:exported="false" />
         <activity
