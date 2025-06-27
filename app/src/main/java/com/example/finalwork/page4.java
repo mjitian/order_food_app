@@ -56,23 +56,33 @@ public class page4 extends AppCompatActivity {
         showname.setText("欢迎您，" + username + "  !");
 
         //监听 - 各项设置
-        m1.setOnClickListener(view -> Toast.makeText(page4.this,"该功能暂未开放",Toast.LENGTH_SHORT).show());
-        m21.setOnClickListener(view -> Toast.makeText(page4.this,"该功能暂未开放",Toast.LENGTH_SHORT).show());
-        m22.setOnClickListener(view -> Toast.makeText(page4.this,"该功能暂未开放",Toast.LENGTH_SHORT).show());
+        m1.setOnClickListener(view -> Toast.makeText(page4.this,"该功能暂未开放",
+                Toast.LENGTH_SHORT).show());
+        m22.setOnClickListener(view -> Toast.makeText(page4.this,"该功能暂未开放",
+                Toast.LENGTH_SHORT).show());
+        m21.setOnClickListener(view -> {
+            // TODO 添加订单功能
+            Intent intent = new Intent(page4.this, MyOrderActivity.class);
+            startActivity(intent);
+        });
         m23.setOnClickListener(view -> {
             Intent to_comment = new Intent(page4.this, comment.class);
             to_comment.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(to_comment);
         });
-        m24.setOnClickListener(view -> Toast.makeText(page4.this,"该功能暂未开放",Toast.LENGTH_SHORT).show());
-        m31.setOnClickListener(view -> Toast.makeText(page4.this,"当前只有默认支付的方式",Toast.LENGTH_SHORT).show());
-        m32.setOnClickListener(view -> Toast.makeText(page4.this,"默认为广东工业大学",Toast.LENGTH_SHORT).show());
+        m24.setOnClickListener(view -> Toast.makeText(page4.this,"该功能暂未开放",
+                Toast.LENGTH_SHORT).show());
+        m31.setOnClickListener(view -> Toast.makeText(page4.this,
+                "当前只有默认支付的方式",Toast.LENGTH_SHORT).show());
+        m32.setOnClickListener(view -> Toast.makeText(page4.this,
+                "默认为北京信息科技大学",Toast.LENGTH_SHORT).show());
         m33.setOnClickListener(view -> {
             Intent to_help = new Intent(page4.this, page4_help.class);
             to_help.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(to_help);
         });
-        m34.setOnClickListener(view -> Toast.makeText(page4.this,"暂无其他设置",Toast.LENGTH_SHORT).show());
+        m34.setOnClickListener(view -> Toast.makeText(page4.this,
+                "暂无其他设置",Toast.LENGTH_SHORT).show());
         m4.setOnClickListener(view -> {
             Intent to_p1 = new Intent(page4.this, MainActivity.class);
             to_p1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -97,7 +107,8 @@ public class page4 extends AppCompatActivity {
             public void onClick(View view) {
                 //点击跳转到购物车，需判断购物车是否为空，来决定跳转到哪一个xml页面
                 sqLiteDatabase = openOrCreateDatabase("MYsqlite.db", MODE_PRIVATE, null);
-                Cursor cursor = sqLiteDatabase.query("cart", null, null, null, null, null, null);
+                Cursor cursor = sqLiteDatabase.query("cart",
+                        null, null, null, null, null, null);
                 if (cursor.moveToFirst()) {
                     do {
                         String foodname = null;
