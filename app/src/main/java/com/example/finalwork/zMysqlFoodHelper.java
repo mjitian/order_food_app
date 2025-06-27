@@ -18,11 +18,13 @@ import java.util.List;
 
 public class zMysqlFoodHelper extends SQLiteOpenHelper {
 
-    private static final String DB_NAME="MYsqlite.db";
+    private static final String DB_NAME = "MYsqlite.db";
 
     //建表语句，创建cart表
-    private static final String create_cart="create table cart(foodname varchar(32),foodprice varchar(32),quantity varchar(32))";
-    private SQLiteDatabase sqLiteDatabase;
+    private static final String create_cart =
+            "create table cart(foodname varchar(32)," +
+                    "foodprice varchar(32)," +
+                    "quantity varchar(32))";
 
     //食物名，价格和数量最长32位
     public zMysqlFoodHelper(@Nullable Context context) {
@@ -32,13 +34,13 @@ public class zMysqlFoodHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //直接调用上面的String(封装好语句的字符串)来exe执行该“创建语句”
-        Log.d("1","看看我执行了没有？aaaaaa");
+        Log.d("zMysqlFoodHelper","onCreate");
         sqLiteDatabase.execSQL(create_cart);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        Log.d("1","看看我执行了没有？bbbbbb");
+        Log.d("zMysqlFoodHelper","onUpgrade");
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS food");  // 删除原先的表
         sqLiteDatabase.execSQL(create_cart);  // 创建新表
     }
@@ -131,27 +133,4 @@ public class zMysqlFoodHelper extends SQLiteOpenHelper {
             //直接空语句
         }
     }
-
-    //计算总价方法     使用Cart类的getTotalPrice()就好了，不用再来操作数据库计算总价，有些麻烦，所以该部分内容注释掉
-//    public double total (){
-//        double total = 0;
-//        SQLiteDatabase db = getWritableDatabase();
-//        Cursor cursor = sqLiteDatabase.query("cart", null, null, null, null, null, null);
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                try {
-//                    //拿到下标，游标指向相应下标位置即可拿到对应数据信息
-//                    double price = cursor.getInt(cursor.getColumnIndexOrThrow("foodprice"));
-//                    int quantity = cursor.getInt(cursor.getColumnIndexOrThrow("quantity"));
-//                    //总价追加计算
-//                    total += quantity*price;
-//                } catch (IllegalArgumentException e) {
-//                    Log.e(TAG, "getColumnIndexOrThrow error: " + e.getMessage());
-//                }
-//
-//            } while (cursor.moveToNext());
-//        }
-//        return total;
-//    }
 }

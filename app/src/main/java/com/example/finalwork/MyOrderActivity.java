@@ -1,0 +1,50 @@
+package com.example.finalwork;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.finalwork.javabean.Order;
+import com.example.finalwork.javabean.OrderAdapter;
+
+import java.util.ArrayList;
+
+public class MyOrderActivity extends AppCompatActivity {
+
+    private final ArrayList<Order> my_order = new ArrayList<Order>();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_order);
+
+        TextView order_back = findViewById(R.id.my_order_back);
+        order_back.setOnClickListener(view -> finish());
+
+        initMyOrder();
+        ListView my_order_list = findViewById(R.id.order_list);
+        my_order_list.setAdapter(new OrderAdapter(this, R.layout.acvitity_my_order_item,
+                my_order));
+
+    }
+
+    private void initMyOrder() {
+        SQLiteDatabase sqLiteDatabase = new zMySqlHelper(this).getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.query("MyOrder",
+                null, null, null,
+                null, null, null);
+        if (cursor.moveToFirst()) {
+            do {
+                String uuid = cursor.getString(cursor.getColumnIndexOrThrow("uuid"));
+                long timestamp = cursor.getLong(cursor.getColumnIndexOrThrow("time"));
+                double price = cursor.getDouble(cursor.getColumnIndexOrThrow("total_price"));
+                my_order.add(new Order(uuid, price, timestamp));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+    }
+
+}

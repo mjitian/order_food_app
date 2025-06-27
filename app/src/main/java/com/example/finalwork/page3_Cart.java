@@ -2,6 +2,7 @@ package com.example.finalwork;
 
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -23,6 +24,7 @@ import com.example.finalwork.javabean.CartAdapter;
 import com.example.finalwork.javabean.Product;
 
 import java.util.Map;
+import java.util.UUID;
 
 public class page3_Cart extends AppCompatActivity {
     private Cart cart;
@@ -103,7 +105,7 @@ public class page3_Cart extends AppCompatActivity {
             startActivity(to_p4);
         });
 
-        // 在 CartActivity 的 onCreate 方法中接收传递的商品数据
+        // 在 page3_Cart 的 onCreate 方法中接收传递的商品数据
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("product")) {
             Product product = (Product) intent.getSerializableExtra("product");
@@ -127,7 +129,8 @@ public class page3_Cart extends AppCompatActivity {
 
         // 拿到数据库中的 Cart临时数据表，动态更新，每次跳转到这个页面就会进行初始化，将相关商品信息写入并进行相应展示
         sqLiteDatabase = openOrCreateDatabase("MYsqlite.db", MODE_PRIVATE, null);
-        Cursor cursor = sqLiteDatabase.query("cart", null, null, null, null, null, null);
+        Cursor cursor = sqLiteDatabase.query("cart", null, null,
+                null, null, null, null);
         if (cursor.moveToFirst()) {
             do {
                 String foodname = null;
@@ -170,7 +173,21 @@ public class page3_Cart extends AppCompatActivity {
                             Toast.makeText(page3_Cart.this, "支付成功！", Toast.LENGTH_LONG).show();
                             //关闭对话框之前先将数据库的所有quantity都变为0
                             sqLiteDatabase = openOrCreateDatabase("MYsqlite.db", MODE_PRIVATE, null);
-                            Cursor cursor = sqLiteDatabase.query("cart", null, null, null, null, null, null);
+                            Cursor cursor = sqLiteDatabase.query("cart",
+                                    null, null, null,
+                                    null, null, null);
+
+                            // 添加订单信息
+                            String uuid = UUID.randomUUID().toString();
+                            long timestamp = System.currentTimeMillis();
+                            ContentValues order_values = new ContentValues();
+                            order_values.put("uuid", uuid);
+                            order_values.put("total_price", totalPrice);
+                            order_values.put("time", timestamp);
+                            sqLiteDatabase.insert("MyOrder", null, order_values);
+                            Log.d("page3_Cart", "add Order");
+
+
                             if (cursor.moveToFirst()) {
                                 do {
                                     try {
@@ -211,7 +228,8 @@ public class page3_Cart extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 double total = 0;
                 sqLiteDatabase = openOrCreateDatabase("MYsqlite.db", MODE_PRIVATE, null);
-                Cursor cursor = sqLiteDatabase.query("cart", null, null, null, null, null, null);
+                Cursor cursor = sqLiteDatabase.query("cart", null, null,
+                        null, null, null, null);
 
                 if (cursor.moveToFirst()) {
                     do {
