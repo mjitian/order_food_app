@@ -132,7 +132,7 @@ public class page2_Italian extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //通过位置position,拿到该行的item所有数据
-                Log.d("1","dgsdlgjs三国杀");
+                Log.d("page2_Italian","setOnItemClickListener.OnItemClickListener.onItemClick");
                 Map<String,Object> map = mList.get(i);       //这里的i就是position，也就是对应列表中的位置（最上面是0，往下递增）
                 //拿到该行数据的title(Object类型要转为String)
                 String foodname = (String)map.get("name");

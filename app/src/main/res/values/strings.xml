@@ -4,5 +4,7 @@
     <string name="p2">点餐</string>
     <string name="p3">购物车</string>
     <string name="p4">我的</string>
-    <string name="title_activity_my_order">MyOrderActivity</string>
+    <string name="title_activity_my_order">我的订单</string>
+    <string name="OrderPrice">订单金额：%.2f</string>
+    <string name="OrderTimestamp">订单时间：%s</string>
 </resources>

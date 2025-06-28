@@ -5,12 +5,16 @@
     android:layout_height="60dp">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center_vertical"
+        android:textSize="20sp"
         android:id="@+id/order_timestamp"/>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textSize="20sp"
         android:gravity="center_vertical"
         android:id="@+id/order_price"/>
 
