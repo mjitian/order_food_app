@@ -28,7 +28,7 @@ public class zMySqlHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        //直接调用上面的String(封装好语句的字符串)来创建语句  -- 其实是语句太长了，所以分开来写
+        //直接调用上面的String(封装好语句的字符串)来创建语句
         sqLiteDatabase.execSQL(create_user);
     }
 
@@ -37,9 +37,9 @@ public class zMySqlHelper extends SQLiteOpenHelper {
 
     }
 
-    //实现注册功能的方法
+    //实现注册功能的方法（先查后写）
     public long register(User u){   //u 里面有输入框的账号和密码
-        //拿到数据库
+        //拿到数据库 可以读写的对象实例
         SQLiteDatabase db = getWritableDatabase();
         //用cv存一个键值对
         ContentValues cv = new ContentValues();
@@ -48,6 +48,7 @@ public class zMySqlHelper extends SQLiteOpenHelper {
         //先判断好数据是否合法，再将账号密码打包成键值对 并写入数据库
         //1.重名情况
         String etUsername = u.getName();
+        //query  查函数 七个参数
         Cursor point = db.query("users",null,"name like ?",new String[]{etUsername},null,null,null);
         if(etUsername != null){
             while(point.moveToNext()){                //光标循环扫描
@@ -63,7 +64,7 @@ public class zMySqlHelper extends SQLiteOpenHelper {
         if(!u.getName().isEmpty() && !u.getPassword().isEmpty()){
             cv.put("name",u.getName());
             cv.put("password",u.getPassword());
-            //向数据库里面插入键值对
+            //向数据库里面插入键值对 调用insert函数
             users = db.insert("users",null,cv);
             users = 1;
         }

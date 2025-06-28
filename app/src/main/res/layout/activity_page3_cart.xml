@@ -105,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="15dp"
-            android:background="#0099ff"
+            android:background="@color/yellow2"
             android:text="购物车"
             android:textColor="#ffffff"
             android:textAlignment="center"

@@ -1,38 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#F9F9F9"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="30dp">
+    android:fillViewport="true">
 
-    <EditText
-        android:id="@+id/logout_username"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入当前账号"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:padding="16dp" />
-    <EditText
-        android:id="@+id/logout_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入密码"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:padding="16dp" />
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <TextView
-        android:id="@+id/logout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:padding="5dp"
-        android:background="@drawable/round1_corner"
-        android:text="注    销"
-        android:textAlignment="center"
-        android:textColor="#ffffff"
-        android:textSize="30sp" />
+        <!-- 返回按钮 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start">
+            <TextView
+                android:id="@+id/back_to_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="← 返回"
+                android:textSize="16sp"
+                android:textColor="#2196F3"/>
+        </LinearLayout>
 
-</LinearLayout>
+        <!-- Logo -->
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/appicon_new"
+            android:contentDescription="logo" />
+
+        <!-- 标题 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="注销账户"
+            android:textColor="#222222"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"/>
+
+        <!-- 账号输入框 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edit_text_bg"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/icon_user"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_user"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp" />
+
+            <EditText
+                android:id="@+id/logout_username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/icon_user"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:hint="请输入当前账号"
+                android:textSize="16sp"
+                android:inputType="text" />
+        </RelativeLayout>
+
+        <!-- 密码输入框 -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/edit_text_bg"
+            android:layout_marginBottom="24dp">
+
+            <ImageView
+                android:id="@+id/icon_password"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_password"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp" />
+
+            <EditText
+                android:id="@+id/logout_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@id/icon_password"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:hint="请输入密码"
+                android:textSize="16sp"
+                android:inputType="textPassword" />
+        </RelativeLayout>
+
+        <!-- 注销按钮 -->
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="注    销"
+            android:background="@drawable/btn_blue_round"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:gravity="center"
+            android:elevation="2dp" />
+    </LinearLayout>
+</ScrollView>

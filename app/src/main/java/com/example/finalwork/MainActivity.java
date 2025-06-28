@@ -243,7 +243,6 @@ public class MainActivity extends AppCompatActivity {
         p4.setOnClickListener(view -> {
             Intent to_p4 = new Intent(MainActivity.this, page4.class);
             to_p4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            to_p4.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(to_p4);
         });
     }
