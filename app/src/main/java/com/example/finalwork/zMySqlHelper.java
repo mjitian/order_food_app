@@ -19,9 +19,30 @@ import androidx.annotation.Nullable;
 public class zMySqlHelper extends SQLiteOpenHelper {
     private static final String DB_NAME="MYsqlite.db";
 
+
     //建表语句
     private static final String create_user="create table users(name varchar(32),password varchar(32))";
     //账号密码最长32位
+    private static final String create_cart =
+            "create table cart(foodname varchar(32)," +
+                    "foodprice varchar(32)," +
+                    "quantity varchar(32))";
+    // 创建食物与订单数据表用来生成订单
+    private static final String createFood = "create table Food (" +
+            "id integer primary key autoincrement," +
+            "name text," +
+            "price real," +
+            "quantity integer," +
+            "shop text," +
+            "order_id text)";
+
+    private static  final String createOrders = "create table MyOrder (" +
+            "uuid text primary key," +
+            "username text," +
+            "total_price real," +
+            "time integer)";
+
+
     public zMySqlHelper(@Nullable Context context) {
         super(context, DB_NAME, null, 2);
     }
@@ -30,6 +51,9 @@ public class zMySqlHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //直接调用上面的String(封装好语句的字符串)来创建语句
         sqLiteDatabase.execSQL(create_user);
+        sqLiteDatabase.execSQL(create_cart);
+        sqLiteDatabase.execSQL(createFood);
+        sqLiteDatabase.execSQL(createOrders);
     }
 
     @Override
