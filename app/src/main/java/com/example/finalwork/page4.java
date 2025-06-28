@@ -63,6 +63,7 @@ public class page4 extends AppCompatActivity {
         m21.setOnClickListener(view -> {
             // TODO 添加订单功能
             Intent intent = new Intent(page4.this, MyOrderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
         m23.setOnClickListener(view -> {

@@ -34,10 +34,10 @@
                     android:layout_height="95dp"
                     android:layout_weight="1"
                     android:background="@drawable/usericon"
+                    android:contentDescription="图标"
                     android:padding="16dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:scaleType="centerCrop"
-                    android:text="图标"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
@@ -59,8 +59,8 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/round_corner"
                 android:text="开通会员"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="20dp"
+                android:gravity="start|center_vertical"
+                android:paddingStart="20dp"
                 android:textSize="20sp" />
             <!--订单栏-->
             <LinearLayout
@@ -115,7 +115,7 @@
                     android:id="@+id/p4_3_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:text="支付设置"
@@ -129,7 +129,7 @@
                     android:paddingBottom="5dp"
                     android:text="地址修改"
                     android:background="@drawable/box_underline"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:textSize="20sp" />
 
                 <TextView
@@ -140,7 +140,7 @@
                     android:paddingBottom="5dp"
                     android:text="相关帮助"
                     android:background="@drawable/box1_underline"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:textSize="20sp" />
 
                 <TextView
@@ -149,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:text="其他设置"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -162,8 +162,8 @@
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/round_corner"
                 android:text="相关推荐"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="20dp"
+                android:gravity="start|center_vertical"
+                android:paddingStart="20dp"
                 android:textSize="20sp" />
             <!--退出登录栏-->
             <TextView
@@ -206,7 +206,7 @@
             android:padding="15dp"
             android:text="首页"
             android:textAlignment="center"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
         <TextView
             android:id="@+id/below_2"
             android:layout_width="0dp"
@@ -215,7 +215,7 @@
             android:padding="15dp"
             android:text="点菜"
             android:textAlignment="center"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
         <TextView
             android:id="@+id/below_3"
             android:layout_width="0dp"
@@ -224,7 +224,7 @@
             android:padding="15dp"
             android:text="购物车"
             android:textAlignment="center"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
         <TextView
             android:id="@+id/below_4"
             android:layout_width="0dp"
@@ -235,7 +235,7 @@
             android:text="我的"
             android:textColor="#ffffff"
             android:textAlignment="center"
-            android:textSize="20dp"/>
+            android:textSize="20sp"/>
     </LinearLayout>
 
 </LinearLayout>

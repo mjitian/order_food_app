@@ -1,5 +1,6 @@
 package com.example.finalwork;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -33,9 +34,13 @@ public class MyOrderActivity extends AppCompatActivity {
     }
 
     private void initMyOrder() {
+        // 获取用户名
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String username = preferences.getString("username", "");
+
         SQLiteDatabase sqLiteDatabase = new zMySqlHelper(this).getReadableDatabase();
         Cursor cursor = sqLiteDatabase.query("MyOrder",
-                null, null, null,
+                null, "username = ?", new String[]{username},
                 null, null, null);
         if (cursor.moveToFirst()) {
             do {
