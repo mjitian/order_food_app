@@ -145,14 +145,15 @@ public class page2_noodles extends AppCompatActivity {
 
                 //点击后 回调add函数
                 Product p = new Product(foodname, intprice,intquantity);
-                Log.d("1",p.getName());
-                Log.d("1", String.valueOf(p.getPrice()));
-                Log.d("1", String.valueOf(p.getQuantity()));
+                Log.d("page2_noodles",p.getName());
+                Log.d("page2_noodles", String.valueOf(p.getPrice()));
+                Log.d("page2_noodles", String.valueOf(p.getQuantity()));
                 myCartSql.add(p);
 
                 //add增加后，数据库更新了，重新遍历数据库拿到新的数量
                 sqLiteDatabase = openOrCreateDatabase("MYsqlite.db", MODE_PRIVATE, null);
-                Cursor cursor = sqLiteDatabase.query("cart", null, null, null, null, null, null);
+                Cursor cursor = sqLiteDatabase.query("cart", null, null,
+                        null, null, null, null);
                 //先让全局变量初始化为0,等下要开始重新计算一遍了
                 allnum = 0;
                 if (cursor.moveToFirst()) {
@@ -185,7 +186,8 @@ public class page2_noodles extends AppCompatActivity {
             public void onClick(View view) {
                 //点击跳转到购物车，需判断购物车是否为空，来决定跳转到哪一个xml页面
                 sqLiteDatabase = openOrCreateDatabase("MYsqlite.db", MODE_PRIVATE, null);
-                Cursor cursor = sqLiteDatabase.query("cart", null, null, null, null, null, null);
+                Cursor cursor = sqLiteDatabase.query("cart", null, null,
+                        null, null, null, null);
                 if (cursor.moveToFirst()) {
                     do {
                         int quantity = 0;
