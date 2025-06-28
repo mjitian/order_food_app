@@ -5,6 +5,7 @@ import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -163,6 +164,10 @@ public class page3_Cart extends AppCompatActivity {
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // 获取用户名
+                SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+                String username = preferences.getString("username", "");
+
                 double totalPrice = cart.getTotalPrice();
                 AlertDialog.Builder builder = new AlertDialog.Builder(page3_Cart.this);
                 builder.setTitle("总价为"+totalPrice+"元");
@@ -171,23 +176,24 @@ public class page3_Cart extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int id) {
                             // 如果用户点击确定按钮，则关闭对话框并显示支付成功
                             Toast.makeText(page3_Cart.this, "支付成功！", Toast.LENGTH_LONG).show();
-                            //关闭对话框之前先将数据库的所有quantity都变为0
-                            sqLiteDatabase = openOrCreateDatabase("MYsqlite.db", MODE_PRIVATE, null);
-                            Cursor cursor = sqLiteDatabase.query("cart",
-                                    null, null, null,
-                                    null, null, null);
 
-                            // 添加订单信息
+                            sqLiteDatabase = openOrCreateDatabase("MYsqlite.db", MODE_PRIVATE, null);
+                            
+                            // 向数据库中添加订单信息
                             String uuid = UUID.randomUUID().toString();
                             long timestamp = System.currentTimeMillis();
                             ContentValues order_values = new ContentValues();
                             order_values.put("uuid", uuid);
                             order_values.put("total_price", totalPrice);
                             order_values.put("time", timestamp);
+                            order_values.put("username", username);
                             sqLiteDatabase.insert("MyOrder", null, order_values);
                             Log.d("page3_Cart", "add Order");
 
-
+                            //关闭对话框之前先将数据库的所有quantity都变为0
+                            Cursor cursor = sqLiteDatabase.query("cart",
+                                    null, null, null,
+                                    null, null, null);
                             if (cursor.moveToFirst()) {
                                 do {
                                     try {

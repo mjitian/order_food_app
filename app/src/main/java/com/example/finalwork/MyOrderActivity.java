@@ -1,5 +1,6 @@
 package com.example.finalwork;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.example.finalwork.javabean.Order;
 import com.example.finalwork.javabean.OrderAdapter;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class MyOrderActivity extends AppCompatActivity {
 
@@ -32,9 +34,13 @@ public class MyOrderActivity extends AppCompatActivity {
     }
 
     private void initMyOrder() {
+        // 获取用户名
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String username = preferences.getString("username", "");
+
         SQLiteDatabase sqLiteDatabase = new zMySqlHelper(this).getReadableDatabase();
         Cursor cursor = sqLiteDatabase.query("MyOrder",
-                null, null, null,
+                null, "username = ?", new String[]{username},
                 null, null, null);
         if (cursor.moveToFirst()) {
             do {
@@ -44,6 +50,12 @@ public class MyOrderActivity extends AppCompatActivity {
                 my_order.add(new Order(uuid, price, timestamp));
             } while (cursor.moveToNext());
         }
+        my_order.sort(new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return Long.compare(o2.getTimestamp(), o1.getTimestamp());
+            }
+        });
         cursor.close();
     }
 

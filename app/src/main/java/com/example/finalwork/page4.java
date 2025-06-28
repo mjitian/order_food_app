@@ -2,17 +2,26 @@ package com.example.finalwork;
 
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.ActivityResultRegistry;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +29,11 @@ public class page4 extends AppCompatActivity {
 
     private zMySqlHelper mySqlHelper;
     private SQLiteDatabase sqLiteDatabase;
+
+    private static final int REQUEST_CODE_SELECT_IMAGE = 1;
+
+    private ImageView avatarImageView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +61,13 @@ public class page4 extends AppCompatActivity {
         TextView p1 = findViewById(R.id.below_1);
         TextView p2 = findViewById(R.id.below_2);
         TextView p3 = findViewById(R.id.below_3);
+
+        avatarImageView = (ImageView) findViewById(R.id.avatarImageView);
+        avatarImageView.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
+        });
+
         //初始化数据库对象
         mySqlHelper = new zMySqlHelper(this);
         //获取当前登录的账号username
@@ -63,6 +84,7 @@ public class page4 extends AppCompatActivity {
         m21.setOnClickListener(view -> {
             // TODO 添加订单功能
             Intent intent = new Intent(page4.this, MyOrderActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
         m23.setOnClickListener(view -> {
@@ -176,5 +198,18 @@ public class page4 extends AppCompatActivity {
                 builder.create().show();
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE_SELECT_IMAGE:
+                if (resultCode == RESULT_OK && data != null) {
+                    Uri selectedImageUri = data.getData();
+                    avatarImageView.setImageURI(selectedImageUri);
+                }
+
+        }
     }
 }

@@ -38,6 +38,7 @@ public class zMySqlHelper extends SQLiteOpenHelper {
 
     private static  final String createOrders = "create table MyOrder (" +
             "uuid text primary key," +
+            "username text," +
             "total_price real," +
             "time integer)";
 

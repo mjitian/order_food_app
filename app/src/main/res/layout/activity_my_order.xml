@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:background="#0099ff">
+        android:background="@color/yellow1">
         <TextView
             android:id="@+id/my_order_back"
             android:layout_width="0dp"
@@ -24,7 +24,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="7"
             android:paddingStart="30dp"
-            android:text="我的订单"
+            android:paddingEnd="30dp"
+            android:text="@string/title_activity_my_order"
             android:textSize="20sp"
             android:textColor="@color/white"/>
     </LinearLayout>
@@ -33,7 +34,6 @@
     <ListView
         android:id="@+id/order_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
