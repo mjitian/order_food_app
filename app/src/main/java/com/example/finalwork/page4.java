@@ -1,5 +1,6 @@
 package com.example.finalwork;
 
+import static android.graphics.Bitmap.CompressFormat.PNG;
 import static androidx.constraintlayout.widget.ConstraintLayoutStates.TAG;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -10,12 +11,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -25,6 +29,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+
 public class page4 extends AppCompatActivity {
 
     private zMySqlHelper mySqlHelper;
@@ -33,6 +45,8 @@ public class page4 extends AppCompatActivity {
     private static final int REQUEST_CODE_SELECT_IMAGE = 1;
 
     private ImageView avatarImageView;
+
+    private String username;
 
 
     @Override
@@ -62,7 +76,17 @@ public class page4 extends AppCompatActivity {
         TextView p2 = findViewById(R.id.below_2);
         TextView p3 = findViewById(R.id.below_3);
 
+        //获取当前登录的账号username
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        username = preferences.getString("username", "");
+
         avatarImageView = (ImageView) findViewById(R.id.avatarImageView);
+        Bitmap bitmap = readImage(this, username);
+        if (bitmap != null) {
+            avatarImageView.setImageBitmap(bitmap);
+        } else {
+            Log.d("bitmap", "null");
+        }
         avatarImageView.setOnClickListener(view -> {
             Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
@@ -70,9 +94,6 @@ public class page4 extends AppCompatActivity {
 
         //初始化数据库对象
         mySqlHelper = new zMySqlHelper(this);
-        //获取当前登录的账号username
-        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
-        String username = preferences.getString("username", "");
         //显示真正的账号
         showname.setText("欢迎您，" + username + "  !");
 
@@ -81,12 +102,13 @@ public class page4 extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show());
         m22.setOnClickListener(view -> Toast.makeText(page4.this,"该功能暂未开放",
                 Toast.LENGTH_SHORT).show());
+        // 我的订单
         m21.setOnClickListener(view -> {
-            // TODO 添加订单功能
             Intent intent = new Intent(page4.this, MyOrderActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         });
+        // 评价
         m23.setOnClickListener(view -> {
             Intent to_comment = new Intent(page4.this, comment.class);
             to_comment.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -207,9 +229,52 @@ public class page4 extends AppCompatActivity {
             case REQUEST_CODE_SELECT_IMAGE:
                 if (resultCode == RESULT_OK && data != null) {
                     Uri selectedImageUri = data.getData();
-                    avatarImageView.setImageURI(selectedImageUri);
+                    Bitmap bitmap = null;
+                    // 将头像转为bitmap
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImageUri);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    // 保存头像到username.png
+                    assert bitmap != null;
+                    saveImage(this, bitmap, username);
+                    avatarImageView.setImageBitmap(bitmap);
                 }
 
         }
     }
+    // 保存图片
+    private static boolean saveImage(Context context, Bitmap bitmap, String imageName) {
+        File directory = context.getFilesDir();
+        File file = new File(directory, imageName + ".png");
+
+        try (FileOutputStream out = new FileOutputStream(file)) {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // 读取图片
+    private static Bitmap readImage(Context context, String imageName) {
+        File directory = context.getFilesDir();
+        File file = new File(directory, imageName + ".png");
+
+        Bitmap bitmap = null;
+
+        if (file.exists()) {
+            try {
+                bitmap = BitmapFactory.decodeFile(file.getPath());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return bitmap;
+    }
+
+
 }

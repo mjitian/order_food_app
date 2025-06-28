@@ -33,12 +33,12 @@
                     android:id="@+id/avatarImageView"
                     android:layout_width="0dp"
                     android:layout_height="95dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:src="@drawable/usericon"
                     android:contentDescription="图标"
                     android:padding="0dp"
-                    android:layout_marginStart="10dp"
                     android:scaleType="centerCrop"
+                    android:src="@drawable/usericon"
                     android:textAlignment="center"
                     android:textSize="20sp" />
 
