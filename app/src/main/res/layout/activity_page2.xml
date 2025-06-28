@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:background="#0099ff"
+        android:background="#FFD700"
         android:text="@string/p2"
         android:textColor="#ffffff"
         android:textSize="25sp"/>
@@ -16,33 +16,35 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="650dp"
-        android:background="@color/grey">
+        android:background="#FFFFE0">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/lightbluebg"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
+                android:background="#FFFFE0"
                 android:paddingLeft="20dp"
-                android:textSize="30sp"
-                android:text="畅销店铺列表"
-                android:textColor="@color/blue"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:background="@drawable/lightbluebg"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
+                android:text="店铺列表"
+                android:textColor="#FFA500"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFE0"
                 android:paddingLeft="200dp"
-                android:textSize="20sp"
-                android:textStyle="italic"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:text="你想吃的都在这里！"
-                android:textColor="@color/purple"/>
+                android:textColor="#FFA500"
+                android:textSize="20sp"
+                android:textStyle="italic" />
 
             <LinearLayout
                 android:layout_width="match_parent"
