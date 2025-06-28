@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -114,6 +115,7 @@ public class page4 extends AppCompatActivity {
             to_comment.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(to_comment);
         });
+
         m24.setOnClickListener(view -> Toast.makeText(page4.this,"该功能暂未开放",
                 Toast.LENGTH_SHORT).show());
         m31.setOnClickListener(view -> Toast.makeText(page4.this,
@@ -199,25 +201,15 @@ public class page4 extends AppCompatActivity {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(page4.this);
-                builder.setTitle("尊敬的用户");
-                builder.setMessage("您确定要退出登录吗？")
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // 如果用户点击确定按钮，则跳转到登录界面
-                                Intent it1 = new Intent(page4.this, login.class);
-                                it1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(it1);
-                            }
+                new MaterialAlertDialogBuilder(page4.this)
+                        .setTitle("尊敬的用户")
+                        .setMessage("您确定要退出程序吗？")
+                        .setPositiveButton("残忍离开", (dialog, id) -> {
+                            finishAffinity();
+                            System.exit(0);
                         })
-                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                // 如果用户点击取消按钮，则关闭对话框并不做任何操作
-                                dialog.cancel();
-                            }
-                        });
-                //把该有的文字和设置都准备好，再在屏幕上进行展示
-                builder.create().show();
+                        .setNegativeButton("我再想想", (dialog, id) -> dialog.cancel())
+                        .show();
             }
         });
     }
