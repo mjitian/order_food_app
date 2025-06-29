@@ -48,7 +48,8 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         View view;
         ViewHolder viewHolder;
         if (convertView == null) {
-            view = LayoutInflater.from(getContext()).inflate(R.layout.acvitity_my_order_item, parent,
+            view = LayoutInflater.from(getContext()).inflate(R.layout.acvitity_my_order_item,
+                    parent,
                     false);
             TextView priceText = view.findViewById(R.id.order_price);
             TextView timestampText = view.findViewById(R.id.order_timestamp);

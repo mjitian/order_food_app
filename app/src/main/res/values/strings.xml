@@ -7,4 +7,5 @@
     <string name="title_activity_my_order">我的订单</string>
     <string name="OrderPrice">订单金额：%.2f</string>
     <string name="OrderTimestamp">订单时间：%s</string>
+    <string name="my_comment">我的评价</string>
 </resources>

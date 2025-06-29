@@ -111,9 +111,12 @@ public class page4 extends AppCompatActivity {
         });
         // 评价
         m23.setOnClickListener(view -> {
-            Intent to_comment = new Intent(page4.this, comment.class);
-            to_comment.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(to_comment);
+//            Intent to_comment = new Intent(page4.this, comment.class);
+//            to_comment.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(to_comment);
+            Toast.makeText(page4.this,"该功能暂未开放",
+                    Toast.LENGTH_SHORT).show();
+
         });
 
         m24.setOnClickListener(view -> Toast.makeText(page4.this,"该功能暂未开放",
