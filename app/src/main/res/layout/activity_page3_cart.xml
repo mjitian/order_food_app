@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="20dp"
-        android:background="#0099ff">
+        android:background="#FFD700">
         <TextView
             android:id="@+id/cart_back"
             android:layout_width="0dp"
